@@ -11,22 +11,22 @@ export class ActivityService {
   constructor(private http: HttpClient) {}
 
   getActivitiesByEventId(eventId: number): Observable<Activity[]> {
-    return this.http.get<Activity[]>(API_ENDPOINTS.ACTIVITIES(eventId));
+    return this.http.get<Activity[]>(API_ENDPOINTS.ACTIVITIES.BY_EVENT(eventId));
   }
 
   getActivityById(eventId: number, activityId: number): Observable<Activity> {
-    return this.http.get<Activity>(`${API_ENDPOINTS.ACTIVITIES(eventId)}/${activityId}`);
+    return this.http.get<Activity>(API_ENDPOINTS.ACTIVITIES.GET_BY_ID(eventId, activityId));
   }
 
   createActivity(eventId: number, activity: Activity): Observable<Activity> {
-    return this.http.post<Activity>(API_ENDPOINTS.ACTIVITIES(eventId), activity);
+    return this.http.post<Activity>(API_ENDPOINTS.ACTIVITIES.BY_EVENT(eventId), activity);
   }
 
   updateActivity(eventId: number, activity: Activity): Observable<Activity> {
-    return this.http.put<Activity>(`${API_ENDPOINTS.ACTIVITIES(eventId)}/${activity.activity_id}`, activity);
+    return this.http.put<Activity>(API_ENDPOINTS.ACTIVITIES.GET_BY_ID(eventId, activity.activity_id!), activity);
   }
 
   deleteActivity(eventId: number, activityId: number): Observable<void> {
-    return this.http.delete<void>(`${API_ENDPOINTS.ACTIVITIES(eventId)}/${activityId}`);
+    return this.http.delete<void>(API_ENDPOINTS.ACTIVITIES.GET_BY_ID(eventId, activityId));
   }
 }

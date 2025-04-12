@@ -76,7 +76,7 @@ export class EditProfileComponent implements OnInit {
     // In a real application, you would call an API to update the user profile
     // For this demo, we'll use the AuthService method to update the user
     setTimeout(() => {
-      this.authService.updateUserInStorage(updatedUser);
+      this.authService.updateUserProfile(updatedUser);
       this.success = 'Profile updated successfully!';
       this.loading = false;
     }, 1000);

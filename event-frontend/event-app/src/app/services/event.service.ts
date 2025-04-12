@@ -11,22 +11,22 @@ export class EventService {
   constructor(private http: HttpClient) {}
 
   getAllEvents(): Observable<Event[]> {
-    return this.http.get<Event[]>(API_ENDPOINTS.EVENTS);
+    return this.http.get<Event[]>(API_ENDPOINTS.EVENTS.BASE);
   }
 
   getEventById(id: number): Observable<Event> {
-    return this.http.get<Event>(`${API_ENDPOINTS.EVENTS}/${id}`);
+    return this.http.get<Event>(API_ENDPOINTS.EVENTS.GET_BY_ID(id));
   }
 
   createEvent(event: Event): Observable<Event> {
-    return this.http.post<Event>(API_ENDPOINTS.EVENTS, event);
+    return this.http.post<Event>(API_ENDPOINTS.EVENTS.BASE, event);
   }
 
   updateEvent(event: Event): Observable<Event> {
-    return this.http.put<Event>(`${API_ENDPOINTS.EVENTS}/${event.event_id}`, event);
+    return this.http.put<Event>(API_ENDPOINTS.EVENTS.GET_BY_ID(event.event_id!), event);
   }
 
   deleteEvent(id: number): Observable<void> {
-    return this.http.delete<void>(`${API_ENDPOINTS.EVENTS}/${id}`);
+    return this.http.delete<void>(API_ENDPOINTS.EVENTS.GET_BY_ID(id));
   }
 }

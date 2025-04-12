@@ -1,7 +1,11 @@
 export interface ActivityRegistration {
-  full_name: string;
-  email: string;
-  college_name?: string;
-  phone?: string;
+  registration_id?: number;
+  user_id: number;
+  activity_id: number;
+  registration_date?: Date;
   additional_info?: string;
+  
+  // Frontend helpers (not in DB schema)
+  user_name?: string;
+  activity_name?: string;
 }

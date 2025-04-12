@@ -108,7 +108,16 @@ export class ActivityRegistrationComponent implements OnInit {
       return;
     }
 
+    // Check if user_id is undefined or null and handle it
+    if (!currentUser.user_id) {
+      this.error = 'User ID is required for registration';
+      this.submitting = false;
+      return;
+    }
+
     const registrationData = {
+      user_id: currentUser.user_id as number, // Cast to number to satisfy the type requirement
+      activity_id: this.activityId,
       full_name: currentUser.full_name,
       email: currentUser.email,
       college_name: currentUser.college_name,

@@ -36,13 +36,13 @@ export class UserProfileComponent implements OnInit {
     if (!this.currentUser?.user_id) return;
     
     this.loading = true;
-    this.registrationService.getRegistrationsByUserId(this.currentUser.user_id)
+    this.registrationService.getUserRegistrations()
       .subscribe({
-        next: (registrations) => {
+        next: (registrations: ActivityRegistration[]) => {
           this.registrations = registrations;
           this.loading = false;
         },
-        error: (error) => {
+        error: (error: any) => {
           this.error = 'Failed to load your registrations. Please try again later.';
           console.error('Error loading registrations:', error);
           this.loading = false;
