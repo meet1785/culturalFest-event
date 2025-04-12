@@ -1,0 +1,85 @@
+<div class="container py-5">
+  <!-- Loading State -->
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <!-- Activity Details -->
+  <div *ngIf="!loading && activity" class="mb-5">
+    <div class="row">
+      <div class="col-lg-8">
+        <nav aria-label="breadcrumb" class="mb-4">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+            <li class="breadcrumb-item"><a routerLink="/activities">Activities</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ activity.activity_name }}</li>
+          </ol>
+        </nav>
+
+        <h1 class="mb-3">{{ activity.activity_name }}</h1>
+        <div class="mb-4">
+          <span class="badge bg-primary me-2">
+            <i class="bi bi-clock me-1"></i> {{ activity.start_time | date:'short' }} - {{ activity.end_time | date:'shortTime' }}
+          </span>
+          <span *ngIf="venue" class="badge bg-secondary">
+            <i class="bi bi-geo-alt me-1"></i> {{ venue.venue_name }}
+          </span>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Description</h5>
+            <p class="card-text">{{ activity.activity_description || 'No description available.' }}</p>
+          </div>
+        </div>
+        
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+          <button class="btn btn-primary btn-lg px-4" (click)="registerForActivity()">
+            Register for this Activity
+          </button>
+          <a routerLink="/activities" class="btn btn-outline-secondary btn-lg px-4">
+            Back to Activities
+          </a>
+        </div>
+      </div>
+
+      <!-- Activity Info Sidebar -->
+      <div class="col-lg-4 mt-4 mt-lg-0">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Activity Information</h5>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Date</span>
+                <span>{{ activity.start_time | date:'mediumDate' }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Time</span>
+                <span>{{ activity.start_time | date:'shortTime' }} - {{ activity.end_time | date:'shortTime' }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Venue Card -->
+        <div *ngIf="venue" class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">
+              <i class="bi bi-geo-alt me-1"></i> Venue
+            </h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ venue.venue_name }}</h6>
+            <p class="card-text">{{ venue.location || 'Location details not available' }}</p>
+            <p *ngIf="venue.capacity" class="card-text">
+              <small class="text-muted">Capacity: {{ venue.capacity }} attendees</small>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

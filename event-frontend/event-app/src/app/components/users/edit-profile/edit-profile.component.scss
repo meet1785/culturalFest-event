@@ -1,0 +1,29 @@
+// Edit profile styles
+.profile-form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .profile-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+  }
+  
+  .avatar-section {
+    text-align: center;
+    margin-bottom: 30px;
+    
+    .avatar-preview {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+    }
+  }
+}

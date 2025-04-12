@@ -1,0 +1,86 @@
+<div class="container py-5">
+  <!-- Loading State -->
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <!-- Event Details -->
+  <div *ngIf="!loading && event" class="mb-5">
+    <div class="row">
+      <div class="col-lg-8">
+        <nav aria-label="breadcrumb" class="mb-4">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+            <li class="breadcrumb-item"><a routerLink="/events">Events</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ event.event_name }}</li>
+          </ol>
+        </nav>
+
+        <h1 class="mb-3">{{ event.event_name }}</h1>
+        <div class="mb-4">
+          <span class="badge bg-primary me-2">
+            <i class="bi bi-calendar me-1"></i> {{ event.event_date | date:'fullDate' }}
+          </span>
+        </div>
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Description</h5>
+            <p class="card-text">{{ event.event_description || 'No description available.' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event Info Sidebar -->
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Event Information</h5>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Date</span>
+                <span>{{ event.event_date | date:'mediumDate' }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Activities</span>
+                <span class="badge bg-primary rounded-pill">{{ activities.length }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Activities Section -->
+  <div *ngIf="!loading && event">
+    <h2 class="mb-4">Activities</h2>
+    
+    <div *ngIf="activities.length === 0" class="alert alert-info">
+      No activities have been scheduled for this event yet.
+    </div>
+    
+    <div *ngIf="activities.length > 0" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      <div class="col" *ngFor="let activity of activities">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">{{ activity.activity_name }}</h5>
+            <p class="card-text">{{ activity.activity_description }}</p>
+            <p class="card-text">
+              <small class="text-muted">
+                <i class="bi bi-clock"></i> {{ activity.start_time | date:'shortTime' }} - {{ activity.end_time | date:'shortTime' }}
+              </small>
+            </p>
+          </div>
+          <div class="card-footer bg-transparent border-top-0">
+            <a [routerLink]="['/activities', activity.activity_id]" class="btn btn-outline-primary">View Details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

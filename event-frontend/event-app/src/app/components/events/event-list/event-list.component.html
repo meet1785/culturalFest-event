@@ -1,0 +1,38 @@
+<div class="container py-5">
+  <h1 class="mb-4">Cultural Fest Events</h1>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <!-- No Events State -->
+  <div *ngIf="!loading && !error && events.length === 0" class="text-center py-5">
+    <p class="lead">No events found. Check back later for upcoming events!</p>
+  </div>
+
+  <!-- Events List -->
+  <div *ngIf="!loading && events.length > 0" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <div class="col" *ngFor="let event of events">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">{{ event.event_name }}</h5>
+          <p class="card-text">{{ event.event_description }}</p>
+          <p class="card-text">
+            <small class="text-muted">
+              <i class="bi bi-calendar"></i> {{ event.event_date | date:'longDate' }}
+            </small>
+          </p>
+        </div>
+        <div class="card-footer bg-transparent border-top-0">
+          <a [routerLink]="['/events', event.event_id]" class="btn btn-outline-primary">View Details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

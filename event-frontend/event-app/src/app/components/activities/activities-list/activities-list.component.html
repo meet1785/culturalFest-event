@@ -1,0 +1,53 @@
+<div class="container py-5">
+  <h1 class="mb-4">Cultural Fest Activities</h1>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <!-- No Activities State -->
+  <div *ngIf="!loading && !error && activities.length === 0" class="text-center py-5">
+    <p class="lead">No activities found. Check back later for upcoming activities!</p>
+  </div>
+
+  <!-- Activities List -->
+  <div *ngIf="!loading && activities.length > 0">
+    <!-- Search and filter controls can be added here -->
+    
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      <div class="col" *ngFor="let activity of activities">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">{{ activity.activity_name }}</h5>
+            <p class="card-text">{{ activity.activity_description }}</p>
+            <p class="card-text">
+              <small class="text-muted">
+                <i class="bi bi-calendar-event me-1"></i> {{ activity.eventName }}
+              </small>
+            </p>
+            <p class="card-text">
+              <small class="text-muted">
+                <i class="bi bi-geo-alt me-1"></i> {{ activity.venueName || 'Venue TBD' }}
+              </small>
+            </p>
+            <p class="card-text">
+              <small class="text-muted">
+                <i class="bi bi-clock me-1"></i> 
+                {{ activity.start_time | date:'shortTime' }} - {{ activity.end_time | date:'shortTime' }}
+              </small>
+            </p>
+          </div>
+          <div class="card-footer bg-transparent border-top-0">
+            <a [routerLink]="['/activities', activity.activity_id]" class="btn btn-outline-primary">View Details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

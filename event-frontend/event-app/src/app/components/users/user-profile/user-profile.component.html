@@ -1,0 +1,148 @@
+<div class="container py-5">
+  <!-- Error State -->
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  
+  <!-- User Profile Section -->
+  <div *ngIf="currentUser" class="row">
+    <div class="col-lg-4 mb-4">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <div class="mb-3">
+            <div class="avatar-placeholder bg-primary text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 100px; height: 100px; font-size: 2.5rem;">
+              {{ currentUser.full_name.substring(0,1).toUpperCase() }}
+            </div>
+            <h5 class="card-title">{{ currentUser.full_name }}</h5>
+            <p class="text-muted">{{ currentUser.email }}</p>
+          </div>
+          
+          <hr>
+          
+          <div class="text-start">
+            <p *ngIf="currentUser.college_name">
+              <i class="bi bi-building me-2"></i> {{ currentUser.college_name }}
+            </p>
+            <p *ngIf="currentUser.phone">
+              <i class="bi bi-telephone me-2"></i> {{ currentUser.phone }}
+            </p>
+          </div>
+          
+          <div class="d-grid mt-3">
+            <a routerLink="/profile/edit" class="btn btn-outline-primary">
+              <i class="bi bi-pencil me-1"></i> Edit Profile
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Account Actions Card -->
+      <div class="card shadow-sm mt-4">
+        <div class="card-header bg-light">
+          Account Actions
+        </div>
+        <div class="list-group list-group-flush">
+          <a href="javascript:void(0)" class="list-group-item list-group-item-action">
+            <i class="bi bi-shield-lock me-2"></i> Change Password
+          </a>
+          <a href="javascript:void(0)" (click)="authService.logout()" class="list-group-item list-group-item-action text-danger">
+            <i class="bi bi-box-arrow-right me-2"></i> Logout
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-lg-8">
+      <div class="card shadow-sm mb-4">
+        <div class="card-header bg-light">
+          <h5 class="card-title mb-0">My Registrations</h5>
+        </div>
+        <div class="card-body">
+          <!-- Loading State -->
+          <div *ngIf="loading" class="text-center py-4">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+          
+          <!-- No Registrations State -->
+          <div *ngIf="!loading && registrations.length === 0" class="text-center py-4">
+            <i class="bi bi-calendar2-x fs-1 text-muted"></i>
+            <p class="mt-3 mb-0 text-muted">You haven't registered for any activities yet.</p>
+            <a routerLink="/activities" class="btn btn-primary mt-3">Browse Activities</a>
+          </div>
+          
+          <!-- Registrations List -->
+          <div *ngIf="!loading && registrations.length > 0" class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Activity</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let registration of registrations">
+                  <td>{{ registration.activityName }}</td>
+                  <td>{{ registration.activityDate | date:'medium' }}</td>
+                  <td>
+                    <span class="badge bg-success">Confirmed</span>
+                  </td>
+                  <td>
+                    <a [routerLink]="['/activities', registration.activityId]" class="btn btn-sm btn-outline-primary me-2">
+                      View
+                    </a>
+                    <button class="btn btn-sm btn-outline-danger" (click)="cancelRegistration(registration.id)">
+                      Cancel
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      
+      <!-- User Stats Card -->
+      <div class="card shadow-sm">
+        <div class="card-header bg-light">
+          <h5 class="card-title mb-0">Participation Statistics</h5>
+        </div>
+        <div class="card-body">
+          <div class="row text-center">
+            <div class="col-md-4 mb-3 mb-md-0">
+              <div class="p-3 border rounded">
+                <h2 class="fw-bold text-primary">{{ registrations.length }}</h2>
+                <p class="text-muted mb-0">Registered Activities</p>
+              </div>
+            </div>
+            <div class="col-md-4 mb-3 mb-md-0">
+              <div class="p-3 border rounded">
+                <h2 class="fw-bold text-primary">0</h2>
+                <p class="text-muted mb-0">Completed Activities</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="p-3 border rounded">
+                <h2 class="fw-bold text-primary">{{ registrations.length }}</h2>
+                <p class="text-muted mb-0">Upcoming Activities</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Not Logged In State -->
+  <div *ngIf="!currentUser" class="text-center py-5">
+    <div class="alert alert-warning">
+      <h4>You are not logged in</h4>
+      <p>Please log in to view your profile and registrations.</p>
+      <div class="mt-3">
+        <a routerLink="/auth/login" class="btn btn-primary me-2">Login</a>
+        <a routerLink="/auth/register" class="btn btn-outline-primary">Register</a>
+      </div>
+    </div>
+  </div>
+</div>

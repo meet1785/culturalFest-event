@@ -1,0 +1,30 @@
+// Venue detail styles
+.venue-detail-container {
+  padding: 20px;
+  
+  .venue-header {
+    margin-bottom: 20px;
+  }
+  
+  .venue-image {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    max-height: 400px;
+    object-fit: cover;
+  }
+  
+  .venue-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .facility-list {
+    margin-top: 20px;
+  }
+}

@@ -1,0 +1,163 @@
+// Register component styles
+
+.register-container {
+  max-width: 550px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.register-header {
+  text-align: center;
+  margin-bottom: 30px;
+
+  &__title {
+    font-size: 2rem;
+    color: #6a1b9a;
+    margin-bottom: 10px;
+  }
+
+  &__subtitle {
+    color: #666;
+  }
+}
+
+.register-form {
+  &__group {
+    margin-bottom: 20px;
+  }
+
+  &__row {
+    display: flex;
+    gap: 15px;
+    
+    .register-form__group {
+      flex: 1;
+    }
+  }
+
+  &__label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+
+    &:focus {
+      outline: none;
+      border-color: #9c27b0;
+      box-shadow: 0 0 0 2px rgba(156, 39, 176, 0.2);
+    }
+
+    &.error {
+      border-color: #f44336;
+    }
+  }
+
+  &__error {
+    color: #f44336;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+
+  &__checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    
+    input[type="checkbox"] {
+      margin-right: 10px;
+    }
+  }
+
+  &__button {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background-color: #9c27b0;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #7b1fa2;
+    }
+
+    &:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.register-footer {
+  margin-top: 25px;
+  text-align: center;
+  
+  &__link {
+    color: #9c27b0;
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.password-strength {
+  margin-top: 8px;
+  
+  &__meter {
+    height: 5px;
+    border-radius: 3px;
+    background-color: #e0e0e0;
+    overflow: hidden;
+    margin-bottom: 5px;
+    
+    &-fill {
+      height: 100%;
+      transition: width 0.3s, background-color 0.3s;
+      
+      &.weak {
+        background-color: #f44336;
+      }
+      
+      &.medium {
+        background-color: #ff9800;
+      }
+      
+      &.strong {
+        background-color: #4caf50;
+      }
+    }
+  }
+  
+  &__text {
+    font-size: 12px;
+    
+    &.weak {
+      color: #f44336;
+    }
+    
+    &.medium {
+      color: #ff9800;
+    }
+    
+    &.strong {
+      color: #4caf50;
+    }
+  }
+}

@@ -1,0 +1,52 @@
+<div class="container py-5">
+  <h1 class="mb-4">Cultural Fest Venues</h1>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <!-- No Venues State -->
+  <div *ngIf="!loading && !error && venues.length === 0" class="text-center py-5">
+    <p class="lead">No venues found. Check back later for venue information!</p>
+  </div>
+
+  <!-- Venues List -->
+  <div *ngIf="!loading && venues.length > 0" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <div class="col" *ngFor="let venue of venues">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">{{ venue.venue_name }}</h5>
+          <p class="card-text">{{ venue.location || 'Location details not available' }}</p>
+          <p class="card-text">
+            <small class="text-muted">
+              <i class="bi bi-people-fill me-1"></i> Capacity: {{ venue.capacity || 'Not specified' }}
+            </small>
+          </p>
+        </div>
+        <div class="card-footer bg-transparent border-top-0">
+          <a [routerLink]="['/venues', venue.venue_id]" class="btn btn-outline-primary">View Details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Map Section (For future integration) -->
+  <div *ngIf="!loading && venues.length > 0" class="mt-5">
+    <h2 class="mb-4">Venues Map</h2>
+    <div class="card">
+      <div class="card-body">
+        <p class="text-center mb-0">
+          <i class="bi bi-map fs-1 text-muted"></i>
+          <br>
+          <span class="text-muted">Interactive map will be available here soon. Check back later!</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

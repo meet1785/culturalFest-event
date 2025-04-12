@@ -1,0 +1,84 @@
+<div class="container py-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card shadow">
+        <div class="card-body p-4">
+          <h2 class="text-center mb-4">Register</h2>
+          
+          <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+          
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="full_name" class="form-label">Full Name</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="full_name" 
+                formControlName="full_name" 
+                [ngClass]="{ 'is-invalid': submitted && f['full_name'].errors }"
+              >
+              <div *ngIf="submitted && f['full_name'].errors" class="invalid-feedback">
+                <div *ngIf="f['full_name'].errors['required']">Full name is required</div>
+                <div *ngIf="f['full_name'].errors['minlength']">Full name must be at least 2 characters</div>
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="college_name" class="form-label">College Name (Optional)</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="college_name" 
+                formControlName="college_name"
+              >
+            </div>
+            
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input 
+                type="email" 
+                class="form-control" 
+                id="email" 
+                formControlName="email" 
+                [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+              >
+              <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                <div *ngIf="f['email'].errors['required']">Email is required</div>
+                <div *ngIf="f['email'].errors['email']">Please enter a valid email address</div>
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="phone" class="form-label">Phone Number (Optional)</label>
+              <input 
+                type="tel" 
+                class="form-control" 
+                id="phone" 
+                formControlName="phone"
+                [ngClass]="{ 'is-invalid': submitted && f['phone'].errors }"
+              >
+              <div *ngIf="submitted && f['phone'].errors" class="invalid-feedback">
+                <div *ngIf="f['phone'].errors['pattern']">Please enter a valid 10-digit phone number</div>
+              </div>
+            </div>
+            
+            <div class="d-grid">
+              <button 
+                type="submit" 
+                class="btn btn-primary btn-lg" 
+                [disabled]="loading"
+              >
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                Register
+              </button>
+            </div>
+          </form>
+          
+          <div class="text-center mt-4">
+            <p>Already have an account? <a routerLink="/auth/login">Login here</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

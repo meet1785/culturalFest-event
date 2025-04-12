@@ -1,0 +1,82 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Import Bootstrap CSS */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+/* Import Bootstrap Icons */
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+@use "sass:color";
+
+:root {
+  --primary-color: #3f51b5;
+  --secondary-color: #f50057;
+  --accent-color: #ff4081;
+  --background-color: #f5f5f5;
+  --text-color: #212121;
+  --text-secondary-color: #757575;
+  --success-color: #4caf50;
+  --warning-color: #ff9800;
+  --danger-color: #f44336;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.hero-section {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+              url('/assets/images/cultural-fest-bg.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+main {
+  flex: 1;
+}
+
+/* Custom button styles */
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+  background-color: color.adjust(var(--primary-color), $lightness: -10%);
+  border-color: color.adjust(var(--primary-color), $lightness: -10%);
+}
+
+/* Card hover effect */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Animation for loading states */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+/* Navigation active styles */
+.nav-link.active {
+  font-weight: 500;
+  color: var(--primary-color) !important;
+}

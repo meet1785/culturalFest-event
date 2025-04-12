@@ -1,0 +1,36 @@
+// Event detail styles
+.event-detail-container {
+  padding: 20px;
+  
+  .event-header {
+    margin-bottom: 30px;
+  }
+  
+  .event-banner {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .event-info {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .event-sidebar {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .event-activities {
+    margin-top: 40px;
+  }
+}

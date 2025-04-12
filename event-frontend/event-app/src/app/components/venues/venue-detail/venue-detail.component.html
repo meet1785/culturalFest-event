@@ -1,0 +1,121 @@
+<div class="container py-5">
+  <!-- Loading State -->
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <!-- Venue Details -->
+  <div *ngIf="!loading && venue" class="mb-5">
+    <div class="row">
+      <div class="col-lg-8">
+        <nav aria-label="breadcrumb" class="mb-4">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+            <li class="breadcrumb-item"><a routerLink="/venues">Venues</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ venue.venue_name }}</li>
+          </ol>
+        </nav>
+
+        <h1 class="mb-3">{{ venue.venue_name }}</h1>
+        <div class="mb-4">
+          <span class="badge bg-primary me-2">
+            <i class="bi bi-geo-alt me-1"></i> {{ venue.location || 'Location not specified' }}
+          </span>
+          <span class="badge bg-secondary">
+            <i class="bi bi-people-fill me-1"></i> Capacity: {{ venue.capacity || 'Not specified' }}
+          </span>
+        </div>
+
+        <!-- Venue Map (Placeholder) -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Location Map</h5>
+            <div class="text-center p-4 bg-light">
+              <i class="bi bi-map fs-1 text-muted"></i>
+              <p class="text-muted mt-2">Interactive map will be available here soon.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Venue Information</h5>
+            <p class="card-text">
+              Experience the vibrant atmosphere at {{ venue.venue_name }}. This venue offers excellent facilities for 
+              cultural performances and gatherings.
+            </p>
+            
+            <h6 class="mt-4">Facilities</h6>
+            <ul>
+              <li>Seating capacity for {{ venue.capacity || 'multiple' }} attendees</li>
+              <li>Sound and lighting equipment</li>
+              <li>Staging area</li>
+              <li>Accessibility features</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Venue Info Sidebar -->
+      <div class="col-lg-4 mt-4 mt-lg-0">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Contact Information</h5>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <i class="bi bi-geo-alt-fill me-2"></i> {{ venue.location || 'Location not specified' }}
+              </li>
+              <li class="list-group-item">
+                <i class="bi bi-telephone-fill me-2"></i> Contact: +1-123-456-7890
+              </li>
+              <li class="list-group-item">
+                <i class="bi bi-envelope-fill me-2"></i> venues&#64;culturalfest2025.com
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scheduled Activities Section -->
+  <div *ngIf="!loading && venue">
+    <h2 class="mb-4">Upcoming Activities at this Venue</h2>
+    
+    <div *ngIf="activities.length === 0" class="alert alert-info">
+      No activities have been scheduled at this venue yet.
+    </div>
+    
+    <div *ngIf="activities.length > 0">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Activity</th>
+              <th>Event</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let activity of activities">
+              <td>{{ activity.activity_name }}</td>
+              <td>{{ activity.eventName }}</td>
+              <td>{{ activity.start_time | date:'mediumDate' }}</td>
+              <td>{{ activity.start_time | date:'shortTime' }} - {{ activity.end_time | date:'shortTime' }}</td>
+              <td>
+                <a [routerLink]="['/activities', activity.activity_id]" class="btn btn-sm btn-outline-primary">View</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
