@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Activity } from '../models/activity.model';
 import { API_ENDPOINTS } from '../core/constants/api.constants';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +29,9 @@ export class ActivityService {
 
   deleteActivity(eventId: number, activityId: number): Observable<void> {
     return this.http.delete<void>(API_ENDPOINTS.ACTIVITIES.GET_BY_ID(eventId, activityId));
+  }
+
+  getActivityParticipants(eventId: number, activityId: number): Observable<User[]> {
+    return this.http.get<User[]>(`${API_ENDPOINTS.ACTIVITIES.BY_EVENT(eventId)}/${activityId}/participants`);
   }
 }

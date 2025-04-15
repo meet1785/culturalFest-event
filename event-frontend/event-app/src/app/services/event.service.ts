@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Event } from '../models/event.model';
+import { User } from '../models/user.model';
 import { API_ENDPOINTS } from '../core/constants/api.constants';
 
 @Injectable({
@@ -28,5 +29,9 @@ export class EventService {
 
   deleteEvent(id: number): Observable<void> {
     return this.http.delete<void>(API_ENDPOINTS.EVENTS.GET_BY_ID(id));
+  }
+
+  getEventParticipants(eventId: number): Observable<User[]> {
+    return this.http.get<User[]>(`${API_ENDPOINTS.EVENTS.BASE}/${eventId}/participants`);
   }
 }

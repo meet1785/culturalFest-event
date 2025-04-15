@@ -5,6 +5,7 @@ import com.fsd.event.dto.UserDTO;
 import com.fsd.event.service.ActivityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class ActivityController {
     private final ActivityService activityService;
 
     // Create an activity under a specific event
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ActivityDTO create(
             @PathVariable Long eventId, // Get eventId from URL
@@ -37,17 +39,13 @@ public class ActivityController {
     }
 
     // Delete an activity by id
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         activityService.deleteActivity(id);
     }
 
-    // // Get all participants registered for a specific activity
-    // @GetMapping("/{id}/participants")
-    // public List<UserDTO> getParticipants(@PathVariable Long id) {
-    //     return activityService.getActivityParticipants(id);
-    // }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{activityId}/participants")
     public List<UserDTO> getActivityParticipants(
             @PathVariable Long activityId // Get from URL

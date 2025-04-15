@@ -101,6 +101,10 @@ export class AuthService {
     return !!this.getToken() && !!this.currentUserValue;
   }
 
+  isAdmin(): boolean {
+    return this.currentUserValue?.role === 'ADMIN';
+  }
+
   updateUserProfile(userData: Partial<User>): Observable<User> {
     return this.http.put<User>(API_ENDPOINTS.USERS.UPDATE_PROFILE, userData).pipe(
       tap(updatedUser => {

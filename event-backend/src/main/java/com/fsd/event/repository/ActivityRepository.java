@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ActivityRepository extends JpaRepository<Activity, Long> {
     List<Activity> findByEvent_EventId(Long eventId); // Filter by eventId
+    List<Activity> findByVenue_VenueId(Long venueId); // Find activities by venueId
 }
