@@ -30,7 +30,8 @@ export class LoginComponent {
     }
 
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
 
     // Get return url from route parameters or default to '/'
@@ -49,7 +50,10 @@ export class LoginComponent {
     }
 
     this.loading = true;
-    this.authService.login(this.f['email'].value)
+    this.authService.login({
+      email: this.f['email'].value,
+      password: this.f['password'].value
+    })
       .subscribe({
         next: () => {
           this.router.navigate([this.returnUrl]);
