@@ -17,7 +17,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
           case 401:
             errorMessage = 'Unauthorized. Please log in again.';
             // You could redirect to login page or clear auth data
-            localStorage.removeItem('token');
+            localStorage.removeItem('auth_token');
             localStorage.removeItem('currentUser');
             break;
           case 403:

@@ -31,6 +31,7 @@ export class RegisterComponent {
       full_name: ['', [Validators.required, Validators.minLength(2)]],
       college_name: [''],
       email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       phone: ['', Validators.pattern('^[0-9]{10}$')]
     });
   }
